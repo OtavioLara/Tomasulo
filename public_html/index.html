@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <script src="angular.min.js"></script>
+        <script>
+            var app = angular.module('entradasApp', []);
+            app.controller('entradasController', function ($scope) {
+                $scope.floatInsts = ["ADD.D", "SUBD", "MULTD", "DIV.D", "L.D", "S.D"];
+                $scope.intInsts = ["ADD", "DADDUI", "BEQ", "BNEZ"];
+                $scope.insts = $scope.floatInsts.concat($scope.intInsts);
+
+                $scope.regf = {"F0": false, "F2": false, "F4": false, "F6": false, "F8": false, "F10": false, "F12": false, "F14": false,
+                    "F16": false, "F18": false, "F20": false, "F22": false, "F24": false, "F26": false, "F28": false, "F30": false};
+                $scope.keysRegsf = Object.keys($scope.regf);
+                $scope.regi = {"R0": false, "R1": false, "R2": false, "R3": false, "R4": false, "R5": false, "R6": false, "R7": false,
+                    "R8": false, "R9": false, "R10": false, "R11": false, "R12": false, "R13": false, "R14": false, "R15": false};
+                $scope.keysRegsi = Object.keys($scope.regi);
+                $scope.instructionBlock = {};
+                
+                $scope.insereInst = function(){
+                    $scope.instructionBlock.instruction = $scope.selectedInst;
+                }
+                $scope.insere = function(){
+                    $scope.instructionBlock.instruction = $scope.selectedInst;
+                }
+                $scope.insereClasse = function(){
+                    $scope.instructionBlock.instruction = $scope.selectedInst;
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div ng-app="entradasApp">
+            <div ng-controller="entradasController">
+                <table>
+                    <thead>
+                    <th>Inst.</th>
+                    <th>T</th>
+                    <th>J</th>
+                    <th>K</th>
+                    </thead>
+                    <tbody>
+                        {{instructionBlock}}
+                        <tr>
+                            <td><select ng-model="selectedInst" ng-change="insereClasse()" ng-options="x for x in insts"></td>
+                            <td ng-if="intInsts.indexOf(selectedInst) > -1">
+                                <select ng-model="selectedReg" ng-options="x for x in keysRegsi">
+                            </td>
+                            <td ng-if="floatInsts.indexOf(selectedInst) > -1">
+                                <select ng-model="selectedReg" ng-options="x for x in keysRegsf">
+                            </td>
+                            <td ng-if="selectedInst">
+                                <input type="text" class="textReg" maxlength="3" ng-model="regj">
+                            </td>
+                            <td ng-if="selectedInst">
+                                <input type="text" class="textReg" maxlength="3" ng-model="regk">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </body>
+</html>

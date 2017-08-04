@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <script src="angular.min.js"></script>
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="TomasuloEstilo.css">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            var app = angular.module('RegisteerFile', []);
+            app.controller('RFController', function ($scope) {
+//                instruções
+                $scope.instructions = [{'inst': 'LD', 'target': 'F6', 'j': '34', 'k': 'R2', 'issue': '', 'ex': '', 'w': ''}, {'inst': 'LD', 'target': 'F2', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''}];
+
+    //                Unidades Funcionais
+                $scope.functionalUnityLoad = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
+                $scope.functionalUnityMulDiv = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
+                $scope.functionalUnityStore = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
+                $scope.functionalUnityAddSub = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
+                $scope.functionalUnityInteger = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
+                
+                $scope.dependecyListWAR = []
+                $scope.dependecyListRAW = []
+                $scope.podeDespacho = function() {
+                    if($scope.functionalUnityLoad.length < 6){
+                        if($scope.dependecyListRAW.indexOf() > -1){
+                            
+                        }
+                    }else{
+                        return;
+                    }
+                }
+
+
+            });
+        </script>
+    </head>
+
+    <body>
+
+        <div ng-app="RegisteerFile" class="principal">
+            <div ng-controller="RFController" class="regFile">
+                <table class="tabela1">
+                    <thead>
+                    <th colspan=7 style="text-align: center"><h4>Register File</h4></th>
+                    </thead>
+                    <thead>
+                    <th>Inst.</th>
+                    <th>T</th>
+                    <th>J</th>
+                    <th>K</th>
+                    <th>Issue</th>
+                    <th>Exec.</th>
+                    <th>W</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="i in instructions">
+                            <td>{{i.inst}}</td>
+                            <td>{{i.target}}</td>
+                            <td>{{i.j}}</td>
+                            <td>{{i.k}}</td>
+                            <td>{{i.issue}}</td>
+                            <td>{{i.ex}}</td>
+                            <td>{{i.w}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tabelas">
+                    <table>
+                        <thead>
+                        <th colspan=8><h4>Mult/Div unity</h4></th>
+                        </thead>
+                        <thead>
+                        <th>Cycle</th>
+                        <th>Name</th>
+                        <th>Busy</th>
+                        <th>Op</th>
+                        <th>Vj</th>
+                        <th>Vk</th>
+                        <th>Qj</th>
+                        <th>Qk</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in functionalUnity">
+                                <td>{{u.cycle}}</td>
+                                <td>{{u.name}}</td>
+                                <td>{{u.busy}}</td>
+                                <td>{{u.op}}</td>
+                                <td>{{u.vj}}</td>
+                                <td>{{u.vk}}</td>
+                                <td>{{u.qj}}</td>
+                                <td>{{u.qk}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

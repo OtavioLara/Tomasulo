@@ -1,0 +1,25 @@
+table {
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  text-align: center;
+}
+.tabela1 tbody tr:nth-child(odd){
+   background-color: #E9E9E9;
+}
+.principal{
+    
+}
+th{
+    color: #2b542c;
+    text-align: center;
+}
+.regFile{
+    margin-left: 30%;
+    margin-bottom:50px;
+}
+.tabelas{
+    margin-bottom: 100px;
+}
+.textReg{
+    width: 30px;
+}
