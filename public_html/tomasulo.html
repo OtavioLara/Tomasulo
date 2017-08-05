@@ -16,28 +16,123 @@ and open the template in the editor.
         <script>
             var app = angular.module('RegisteerFile', []);
             app.controller('RFController', function ($scope) {
-//                instruções
-                $scope.instructions = [{'inst': 'LD', 'target': 'F6', 'j': '34', 'k': 'R2', 'issue': '', 'ex': '', 'w': ''}, {'inst': 'LD', 'target': 'F2', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''}];
+    //                Instruções
+                $scope.instructions = [{'inst': 'LD', 'target': 'F2', 'j': '34', 'k': 'R2', 'issue': '', 'ex': '', 'w': ''}, {'inst': 'MULTD', 'target': 'F4', 'j': 'F6', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''},{'inst': 'LD', 'target': 'F6', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''}];
 
     //                Unidades Funcionais
-                $scope.functionalUnityLoad = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
-                $scope.functionalUnityMulDiv = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
-                $scope.functionalUnityStore = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
-                $scope.functionalUnityAddSub = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
-                $scope.functionalUnityInteger = [{'cycle': 0, 'name': 'LD', 'busy': 'yes', 'op': 'MULTD', 'vj': 'M(F2)', 'vk': 'M(F4)', 'qj': 'Add1', 'qk': 'Load2'}];
-                
-                $scope.dependecyListWAR = []
-                $scope.dependecyListRAW = []
-                $scope.podeDespacho = function() {
-                    if($scope.functionalUnityLoad.length < 6){
-                        if($scope.dependecyListRAW.indexOf() > -1){
-                            
-                        }
+                $scope.functionalUnityLoad = [{'cycle': 0,'name': 'Load1', 'busy': 'no', 'address': ''},
+                                              {'cycle': 0,'name': 'Load2', 'busy': 'no', 'address': ''},
+                                              {'cycle': 0,'name': 'Load3', 'busy': 'no', 'address': ''},
+                                              {'cycle': 0,'name': 'Load4', 'busy': 'no', 'address': ''},
+                                              {'cycle': 0,'name': 'Load5', 'busy': 'no', 'address': ''},
+                                              {'cycle': 0,'name': 'Load6', 'busy': 'no', 'address': ''}];
+                                          
+                $scope.functionalUnityMulDiv = [{'cycle': 0,'type': '' , 'name': 'Mult1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                {'cycle': 0,'type': '' , 'name': 'Mult2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+                                                ];
+                                                
+                $scope.functionalUnityStore = [{'cycle': 0,'type': '' , 'name': 'Store1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                               {'cycle': 0,'type': '' , 'name': 'Store2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                               {'cycle': 0,'type': '' , 'name': 'Store3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}];
+                                           
+                $scope.functionalUnityAddSub = [{'cycle': 0, 'type': '' ,'name': 'Add1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                {'cycle': 0, 'type': '' ,'name': 'Add2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                {'cycle': 0, 'type': '' ,'name': 'Add3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+                                                ];
+                                                
+                $scope.functionalUnityInteger = [{'cycle': 0, 'type': '' ,'name': 'Integer1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                 {'cycle': 0, 'type': '' ,'name': 'Integer2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                 {'cycle': 0, 'type': '' ,'name': 'Integer3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}];
+                $scope.dependecyListRAW = [];
+                $scope.dictRenamed = {};
+                $scope.instructionIssueCounter = 0;
+                $scope.clockCycle = 1;
+                $scope.execution = function(){
+                    if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].k) > -1){
+                        
                     }else{
-                        return;
+                        
                     }
                 }
+                $scope.renomeia = function() {
+                    
+                }
+                $scope.getFreeUnity = function(functionalUnity){
+                    n = functionalUnity.length;
+                    for(i = 0; i < n;i++){
+                        if(functionalUnity[i].busy == 'no'){
+                            return i;
+                        }
+                    }
+                    return -1;
+                }
+                $scope.write = function(){
+                    
+                }
+                $scope.issue = function() {
+                    if($scope.instructionIssueCounter < $scope.instructions.length){
+                        
+                        if($scope.instructions[$scope.instructionIssueCounter].inst == 'LD' && $scope.getFreeUnity($scope.functionalUnityLoad) > -1 && $scope.instructions[$scope.instructionIssueCounter].issue == ''){
+                            
+                            $scope.dependecyListRAW.push($scope.instructions[$scope.instructionIssueCounter].target);
+                            freePosition = $scope.getFreeUnity($scope.functionalUnityLoad);
+                            $scope.functionalUnityLoad[freePosition].busy = 'yes';
+                            $scope.functionalUnityLoad[freePosition].address = $scope.instructions[$scope.instructionIssueCounter].j +'+'+ $scope.instructions[$scope.instructionIssueCounter].k;
+                            $scope.instructions[$scope.instructionIssueCounter].issue = $scope.clockCycle;
+                            
+                            $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityLoad[freePosition].name;
 
+                            
+                            $scope.instructionIssueCounter++;
+                            
+                        }else if(($scope.instructions[$scope.instructionIssueCounter].inst == 'MULTD' || $scope.instructions[$scope.instructionIssueCounter].inst == 'DIV.D') && $scope.getFreeUnity($scope.functionalUnityMulDiv) > -1 && $scope.instructions[$scope.instructionIssueCounter].issue == ''){
+                            $scope.dependecyListRAW.push($scope.instructions[$scope.instructionIssueCounter].target);
+                            freePosition = $scope.getFreeUnity($scope.functionalUnityMulDiv);
+                            $scope.functionalUnityMulDiv[freePosition].busy = 'yes';
+                            $scope.functionalUnityMulDiv[freePosition].op = $scope.instructions[$scope.instructionIssueCounter].inst;
+                            if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) == -1){
+                                if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
+                                    $scope.functionalUnityMulDiv[freePosition].vj = $scope.instructions[$scope.instructionIssueCounter].j;
+                                }else{
+                                    $scope.functionalUnityMulDiv[freePosition].vj = $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j];
+                                }
+                            }
+                            if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].k) == -1){
+                                if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].k] == undefined){
+                                    $scope.functionalUnityMulDiv[freePosition].vk = $scope.instructions[$scope.instructionIssueCounter].k;
+                                }else{
+                                    $scope.functionalUnityMulDiv[freePosition].vk = $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].k];
+                                }
+                            }
+                            if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) > -1){
+                                if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
+                                    $scope.functionalUnityMulDiv[freePosition].qj = $scope.instructions[$scope.instructionIssueCounter].j;
+                                }else{
+                                    $scope.functionalUnityMulDiv[freePosition].qj = $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j];
+                                }
+                            }
+                            if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].k) > -1){
+                                if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].k] == undefined){
+                                    $scope.functionalUnityMulDiv[freePosition].qk = $scope.instructions[$scope.instructionIssueCounter].k;
+                                }else{
+                                    $scope.functionalUnityMulDiv[freePosition].qk = $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].k];
+                                }
+                            }
+                            $scope.instructions[$scope.instructionIssueCounter].issue = $scope.clockCycle;
+                            $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                            $scope.instructionIssueCounter++;
+                        }
+                        else{
+                            $scope.dependecyListRAW.push('merda');
+                        }
+                    }
+                }
+                $scope.stepPerStep = function() {
+                    $scope.issue();
+//                    $scope.execution();
+                    $scope.write();
+                    $scope.clockCycle++;
+                }
 
             });
         </script>
@@ -47,6 +142,9 @@ and open the template in the editor.
 
         <div ng-app="RegisteerFile" class="principal">
             <div ng-controller="RFController" class="regFile">
+                Clock Cycle: {{clockCycle-1}}<br>
+                {{dependecyListRAW}}
+                {{dictRenamed}}
                 <table class="tabela1">
                     <thead>
                     <th colspan=7 style="text-align: center"><h4>Register File</h4></th>
@@ -72,14 +170,14 @@ and open the template in the editor.
                         </tr>
                     </tbody>
                 </table>
-
+                <button type="button" ng-click="stepPerStep()">Next</button>
                 <div class="tabelas">
                     <table>
                         <thead>
                         <th colspan=8><h4>Mult/Div unity</h4></th>
                         </thead>
                         <thead>
-                        <th>Cycle</th>
+                        <th>Ex. Cycle</th>
                         <th>Name</th>
                         <th>Busy</th>
                         <th>Op</th>
@@ -89,7 +187,7 @@ and open the template in the editor.
                         <th>Qk</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="u in functionalUnity">
+                            <tr ng-repeat="u in functionalUnityMulDiv">
                                 <td>{{u.cycle}}</td>
                                 <td>{{u.name}}</td>
                                 <td>{{u.busy}}</td>
@@ -98,6 +196,85 @@ and open the template in the editor.
                                 <td>{{u.vk}}</td>
                                 <td>{{u.qj}}</td>
                                 <td>{{u.qk}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabelas">
+                    <table>
+                        <thead>
+                        <th colspan=8><h4>Add/Sub unity</h4></th>
+                        </thead>
+                        <thead>
+                        <th>Ex. Cycle</th>
+                        <th>Name</th>
+                        <th>Busy</th>
+                        <th>Op</th>
+                        <th>Vj</th>
+                        <th>Vk</th>
+                        <th>Qj</th>
+                        <th>Qk</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in functionalUnityAddSub">
+                                <td>{{u.cycle}}</td>
+                                <td>{{u.name}}</td>
+                                <td>{{u.busy}}</td>
+                                <td>{{u.op}}</td>
+                                <td>{{u.vj}}</td>
+                                <td>{{u.vk}}</td>
+                                <td>{{u.qj}}</td>
+                                <td>{{u.qk}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabelas">
+                    <table>
+                        <thead>
+                        <th colspan=8><h4>Integer unity</h4></th>
+                        </thead>
+                        <thead>
+                        <th>Ex. Cycle</th>
+                        <th>Name</th>
+                        <th>Busy</th>
+                        <th>Op</th>
+                        <th>Vj</th>
+                        <th>Vk</th>
+                        <th>Qj</th>
+                        <th>Qk</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in functionalUnityInteger">
+                                <td>{{u.cycle}}</td>
+                                <td>{{u.name}}</td>
+                                <td>{{u.busy}}</td>
+                                <td>{{u.op}}</td>
+                                <td>{{u.vj}}</td>
+                                <td>{{u.vk}}</td>
+                                <td>{{u.qj}}</td>
+                                <td>{{u.qk}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabelas">
+                    <table>
+                        <thead>
+                        <th colspan=8><h4>Load unity</h4></th>
+                        </thead>
+                        <thead>
+                        <th>Ex. Cycle</th>
+                        <th>Name</th>
+                        <th>Busy</th>
+                        <th>Address</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in functionalUnityLoad">
+                                <td>{{u.cycle}}</td>
+                                <td>{{u.name}}</td>
+                                <td>{{u.busy}}</td>
+                                <td>{{u.address}}</td>
                             </tr>
                         </tbody>
                     </table>
