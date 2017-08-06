@@ -18,22 +18,25 @@ and open the template in the editor.
                 $scope.intInsts = ["ADD", "DADDUI", "BEQ", "BNEZ"];
                 $scope.insts = $scope.floatInsts.concat($scope.intInsts);
 
-                $scope.regf = {"F0": false, "F2": false, "F4": false, "F6": false, "F8": false, "F10": false, "F12": false, "F14": false,
-                    "F16": false, "F18": false, "F20": false, "F22": false, "F24": false, "F26": false, "F28": false, "F30": false};
-                $scope.keysRegsf = Object.keys($scope.regf);
-                $scope.regi = {"R0": false, "R1": false, "R2": false, "R3": false, "R4": false, "R5": false, "R6": false, "R7": false,
-                    "R8": false, "R9": false, "R10": false, "R11": false, "R12": false, "R13": false, "R14": false, "R15": false};
-                $scope.keysRegsi = Object.keys($scope.regi);
-                $scope.instructionBlock = {};
-                
+                $scope.registersFloat = ["F0", "F2", "F4", "F6", "F8", "F10", "F12", "F14", "F16", "F18", "F20", "F22", "F24", "F26", "F28", "F30"];
+                $scope.registersInt = ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15"];
+
+                $scope.instructionBlock = {'issue': '', 'ex': '', 'w': ''};
+                $scope.teste = 'disabled="disabled"';
                 $scope.insereInst = function(){
-                    $scope.instructionBlock.instruction = $scope.selectedInst;
+                    $scope.instructionBlock.inst = $scope.selectedInst;
                 }
-                $scope.insere = function(){
-                    $scope.instructionBlock.instruction = $scope.selectedInst;
+                $scope.insereJ = function(){
+                    $scope.instructionBlock.j = $scope.regj;
                 }
-                $scope.insereClasse = function(){
-                    $scope.instructionBlock.instruction = $scope.selectedInst;
+                $scope.insereK = function(){
+                    $scope.instructionBlock.k = $scope.regk;
+                }
+                $scope.insereTarget = function(){
+                    $scope.instructionBlock.target = $scope.selectedReg;
+                }
+                $scope.addInstruction = function(){
+                    $scope.finished = true;
                 }
             });
         </script>
@@ -50,24 +53,29 @@ and open the template in the editor.
                     </thead>
                     <tbody>
                         {{instructionBlock}}
+                        {{finished}}
                         <tr>
-                            <td><select ng-model="selectedInst" ng-change="insereClasse()" ng-options="x for x in insts"></td>
-                            <td ng-if="intInsts.indexOf(selectedInst) > -1">
-                                <select ng-model="selectedReg" ng-options="x for x in keysRegsi">
+                            <td><select ng-model="selectedInst" ng-change="insereInst()" ng-options="x for x in insts" readonly="readonly"></td>
+                            
+                            <td ng-show="intInsts.indexOf(selectedInst) > -1">
+                                <select ng-model="selectedReg" ng-change="insereTarget()" ng-options="x for x in registersInt">
                             </td>
-                            <td ng-if="floatInsts.indexOf(selectedInst) > -1">
-                                <select ng-model="selectedReg" ng-options="x for x in keysRegsf">
+                            <td ng-show="floatInsts.indexOf(selectedInst) > -1">
+                                <select ng-model="selectedReg" ng-change="insereTarget()" ng-options="x for x in registersFloat">
                             </td>
-                            <td ng-if="selectedInst">
-                                <input type="text" class="textReg" maxlength="3" ng-model="regj">
+                            <td ng-show="selectedInst">
+                                <input ng-model="regj" ng-change="insereJ()" type="text" class="textReg" maxlength="3" ng-model="regj">
                             </td>
-                            <td ng-if="selectedInst">
-                                <input type="text" class="textReg" maxlength="3" ng-model="regk">
+                            
+                            <td ng-show="selectedInst">
+                                <input ng-model="regk" ng-change="insereK()" type="text" class="textReg" maxlength="3" ng-model="regk">
                             </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><button type="button" ng-click="addInstruction()">+</button></td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </body>
