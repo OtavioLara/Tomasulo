@@ -9,6 +9,20 @@ table {
 .principal{
     
 }
+#inserir{
+    width: 49%;
+    align-content: center;
+    float:left;
+}
+#escrever{
+    width: 49%;
+    align-content: center;
+    float:right;
+}
+#executionTime{
+    text-align: center;
+    float:right;
+}
 th{
     color: #2b542c;
     text-align: center;

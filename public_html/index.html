@@ -22,21 +22,35 @@ and open the template in the editor.
                 $scope.registersInt = ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15"];
 
                 $scope.instructionBlock = {'issue': '', 'ex': '', 'w': ''};
-                $scope.teste = 'disabled="disabled"';
+                $scope.instructionsList = [];
+                $scope.selectedReg = "";
+                $scope.selectedInst = "";
+                $scope.regj = "";
+                $scope.regk = "";
                 $scope.insereInst = function(){
                     $scope.instructionBlock.inst = $scope.selectedInst;
                 }
                 $scope.insereJ = function(){
-                    $scope.instructionBlock.j = $scope.regj;
+                    $scope.instructionBlock.j = $scope.regj.toUpperCase();
                 }
                 $scope.insereK = function(){
-                    $scope.instructionBlock.k = $scope.regk;
+                    $scope.instructionBlock.k = $scope.regk.toUpperCase();
                 }
                 $scope.insereTarget = function(){
                     $scope.instructionBlock.target = $scope.selectedReg;
                 }
                 $scope.addInstruction = function(){
-                    $scope.finished = true;
+                    if($scope.selectedInst != "" && $scope.selectedReg != "" && $scope.regj != "" && $scope.regk != ""){
+                        $scope.instructionsList.push($scope.instructionBlock);
+                        $scope.instructionBlock = {'issue': '', 'ex': '', 'w': ''};
+                        $scope.selectedReg = "";
+                        $scope.selectedInst = "";
+                        $scope.regj = "";
+                        $scope.regk = "";
+                    }
+                }
+                $scope.remove = function(object){
+                    $scope.instructionsList.splice($scope.instructionsList.indexOf(object),1);
                 }
             });
         </script>
@@ -44,38 +58,62 @@ and open the template in the editor.
     <body>
         <div ng-app="entradasApp">
             <div ng-controller="entradasController">
-                <table>
-                    <thead>
-                    <th>Inst.</th>
-                    <th>T</th>
-                    <th>J</th>
-                    <th>K</th>
-                    </thead>
-                    <tbody>
-                        {{instructionBlock}}
-                        {{finished}}
-                        <tr>
-                            <td><select ng-model="selectedInst" ng-change="insereInst()" ng-options="x for x in insts" readonly="readonly"></td>
-                            
-                            <td ng-show="intInsts.indexOf(selectedInst) > -1">
-                                <select ng-model="selectedReg" ng-change="insereTarget()" ng-options="x for x in registersInt">
-                            </td>
-                            <td ng-show="floatInsts.indexOf(selectedInst) > -1">
-                                <select ng-model="selectedReg" ng-change="insereTarget()" ng-options="x for x in registersFloat">
-                            </td>
-                            <td ng-show="selectedInst">
-                                <input ng-model="regj" ng-change="insereJ()" type="text" class="textReg" maxlength="3" ng-model="regj">
-                            </td>
-                            
-                            <td ng-show="selectedInst">
-                                <input ng-model="regk" ng-change="insereK()" type="text" class="textReg" maxlength="3" ng-model="regk">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4"><button type="button" ng-click="addInstruction()">+</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="inserir">
+                    <table>
+                        <thead>
+                        <th>Inst.</th>
+                        <th>T</th>
+                        <th>J</th>
+                        <th>K</th>
+                        </thead>
+                        <tbody>
+                            {{instructionsList}}<br>
+                            {{instructionBlock}}
+                            <tr>
+                                <td><select ng-model="selectedInst" ng-change="insereInst()" ng-options="x for x in insts"></td>
+
+                                <td ng-show="intInsts.indexOf(selectedInst) > -1">
+                                    <select ng-model="selectedReg" ng-change="insereTarget()" ng-options="x for x in registersInt">
+                                </td>
+                                <td ng-show="floatInsts.indexOf(selectedInst) > -1">
+                                    <select ng-model="selectedReg" ng-change="insereTarget()" ng-options="x for x in registersFloat">
+                                </td>
+                                <td ng-show="selectedInst">
+                                    <input ng-model="regj" ng-change="insereJ()" type="text" style="text-transform: capitalize" class="textReg" maxlength="3" ng-model="regj">
+                                </td>
+
+                                <td ng-show="selectedInst">
+                                    <input ng-model="regk" ng-change="insereK()" type="text" style="text-transform: uppercase" class="textReg" maxlength="3" ng-model="regk">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><button type="button" ng-click="addInstruction()">+</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="escrever">
+                    <center>
+                        <table>
+                            <thead>
+                                <th>Inst.</th>
+                                <th>T</th>
+                                <th>J</th>
+                                <th>K</th>
+                                <th>Remover</th>
+                            </thead>                    
+                            <tbody>
+                                <tr ng-repeat="inst in instructionsList">
+                                    <td>{{inst.inst}}</td>
+                                    <td>{{inst.target}}</td>
+                                    <td>{{inst.j}}</td>
+                                    <td>{{inst.k}}</td>
+                                    <td><button ng-click="remove(inst)">-</button>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
             </div>
         </div>
     </body>
