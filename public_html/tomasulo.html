@@ -22,6 +22,12 @@ and open the template in the editor.
                     {'inst': 'MULTD', 'target': 'F0', 'j': 'F2', 'k': 'F4', 'issue': '', 'ex': '', 'w': ''},
                     {'inst': 'SUBD', 'target': 'F8', 'j': 'F6', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''},
                     {'inst': 'DIV.D', 'target': 'F10', 'j': 'F0', 'k': 'F6', 'issue': '', 'ex': '','w': ''},
+                    {'inst': 'ADD.D', 'target': 'F6', 'j': 'F8', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''},
+                    {'inst': 'L.D', 'target': 'F6', 'j': '34', 'k': 'R2', 'issue': '', 'ex': '', 'w': ''}, 
+                    {'inst': 'L.D', 'target': 'F2', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''}, 
+                    {'inst': 'MULTD', 'target': 'F0', 'j': 'F2', 'k': 'F4', 'issue': '', 'ex': '', 'w': ''},
+                    {'inst': 'SUBD', 'target': 'F8', 'j': 'F6', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''},
+                    {'inst': 'DIV.D', 'target': 'F10', 'j': 'F0', 'k': 'F6', 'issue': '', 'ex': '','w': ''},
                     {'inst': 'ADD.D', 'target': 'F6', 'j': 'F8', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''}];
                 $scope.cycleLoad = 2;
                 $scope.cycleStore = 2;
@@ -386,11 +392,26 @@ and open the template in the editor.
                         }
                     }
                 }
+                $scope.allSteps = function(){
+                    alert("Faster than light...");
+                    allWrote = false;
+                    while(!allWrote){
+                        allWrote = true;
+                        n = $scope.instructions.length;
+                        for(i = 0; i < n; i++){
+                            if($scope.instructions[i].w == ''){
+                                allWrote = false;
+                                break;
+                            }
+                        }
+                        $scope.stepPerStep();
+                    }
+                }
                 $scope.stepPerStep = function() {
+                    
                     $scope.write();
                     $scope.execution();
                     $scope.issue();
-                    
                     $scope.clockCycle++;
                 }
 
@@ -431,6 +452,7 @@ and open the template in the editor.
                     </tbody>
                 </table>
                 <button type="button" ng-click="stepPerStep()">Next</button>
+                <button type="button" ng-click="allSteps()">Execute</button>
                 <div class="tabelas">
                     <table>
                         <thead>

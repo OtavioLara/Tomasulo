@@ -27,6 +27,18 @@ and open the template in the editor.
                 $scope.selectedInst = "";
                 $scope.regj = "";
                 $scope.regk = "";
+                $scope.time = {};
+                $scope.time.cycleLoad = 2;
+                $scope.time.cycleStore = 2;
+                $scope.time.cycleMult = 10;
+                $scope.time.cycleDiv = 40;
+                $scope.time.cycleAddd = 2;
+                $scope.time.cycleSubd = 2;
+                $scope.time.cycleAdd = 1;
+                $scope.time.cycleDaddui = 2;
+                $scope.time.cycleBeq = 1;
+                $scope.time.cycleBnez = 1;
+                    
                 $scope.insereInst = function(){
                     $scope.instructionBlock.inst = $scope.selectedInst;
                 }
@@ -113,6 +125,37 @@ and open the template in the editor.
                             </tbody>
                         </table>
                     </center>
+                </div>
+                <div id="tempos">
+                    {{time}}
+                    <table>
+                            <thead>
+                                <th>ADD.D</th>
+                                <th>SUBD</th>
+                                <th>MULTD</th>
+                                <th>DIV.D</th>
+                                <th>L.D</th>
+                                <th>S.D</th>
+                                <th>ADD</th>
+                                <th>DADDUI</th>
+                                <th>BEQ</th>
+                                <th>BNEZ</th>
+                            </thead>                    
+                            <tbody>
+                                <tr>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleAddd"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleSubd"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleMult"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleDiv"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleLoad"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleStore"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleAdd"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleDaddui"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleBeq"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="time.cycleBnez"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>
