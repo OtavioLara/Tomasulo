@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Tomasulo</title>
         <script src="angular.min.js"></script>
         <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="TomasuloEstilo.css">
@@ -16,40 +16,150 @@ and open the template in the editor.
         <script>
             var app = angular.module('RegisteerFile', []);
             app.controller('RFController', function ($scope) {
-    //                Instruções
-                $scope.instructions = [{'inst': 'S.D', 'target': 'F2', 'j': '34', 'k': 'R2', 'issue': '', 'ex': '', 'w': ''}, {'inst': 'ADD.D', 'target': 'F4', 'j': 'F6', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''}, {'inst': 'ADD', 'target': 'F4', 'j': 'F6', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''},{'inst': 'S.D', 'target': 'F6', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''}, {'inst': 'S.D', 'target': 'F6', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '','w': ''},
-                    {'inst': 'S.D', 'target': 'F6', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''},{'inst': 'S.D', 'target': 'F6', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''} ];
-
+    //                Instruções SERÃO pegas do index
+                $scope.instructions = [{'inst': 'L.D', 'target': 'F6', 'j': '34', 'k': 'R2', 'issue': '', 'ex': '', 'w': ''}, 
+                    {'inst': 'L.D', 'target': 'F2', 'j': '45', 'k': 'R3', 'issue': '', 'ex': '', 'w': ''}, 
+                    {'inst': 'MULTD', 'target': 'F0', 'j': 'F2', 'k': 'F4', 'issue': '', 'ex': '', 'w': ''},
+                    {'inst': 'SUBD', 'target': 'F8', 'j': 'F6', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''},
+                    {'inst': 'DIV.D', 'target': 'F10', 'j': 'F0', 'k': 'F6', 'issue': '', 'ex': '','w': ''},
+                    {'inst': 'ADD.D', 'target': 'F6', 'j': 'F8', 'k': 'F2', 'issue': '', 'ex': '', 'w': ''}];
+                $scope.cycleLoad = 2;
+                $scope.cycleStore = 2;
+                $scope.cycleMult = 10;
+                $scope.cycleDiv = 40;
+                $scope.cycleAddd = 2;
+                $scope.cycleSubd = 2;
+                $scope.cycleAdd = 1;
+                $scope.cycleDaddui = 2;
+                $scope.cycleBeq = 1;
+                $scope.cycleBnez = 1;
+                
+                
     //                Unidades Funcionais
-                $scope.functionalUnityLoad = [{'cycle': 0,'name': 'Load1', 'busy': 'no', 'address': ''},
-                                              {'cycle': 0,'name': 'Load2', 'busy': 'no', 'address': ''},
-                                              {'cycle': 0,'name': 'Load3', 'busy': 'no', 'address': ''},
-                                              {'cycle': 0,'name': 'Load4', 'busy': 'no', 'address': ''},
-                                              {'cycle': 0,'name': 'Load5', 'busy': 'no', 'address': ''},
-                                              {'cycle': 0,'name': 'Load6', 'busy': 'no', 'address': ''}];
+                $scope.functionalUnityLoad = [{'name': 'Load1', 'busy': 'no', 'address': ''},
+                                              {'name': 'Load2', 'busy': 'no', 'address': ''},
+                                              {'name': 'Load3', 'busy': 'no', 'address': ''},
+                                              {'name': 'Load4', 'busy': 'no', 'address': ''},
+                                              {'name': 'Load5', 'busy': 'no', 'address': ''},
+                                              {'name': 'Load6', 'busy': 'no', 'address': ''}];
                                           
-                $scope.functionalUnityMulDiv = [{'cycle': 0,'type': '' , 'name': 'Mult1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                                {'cycle': 0,'type': '' , 'name': 'Mult2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+                $scope.functionalUnityMulDiv = [{'type': '' , 'name': 'Mult1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                {'type': '' , 'name': 'Mult2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
                                                 ];
                                                 
-                $scope.functionalUnityStore = [{'cycle': 0,'type': '' , 'name': 'Store1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                               {'cycle': 0,'type': '' , 'name': 'Store2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                               {'cycle': 0,'type': '' , 'name': 'Store3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}];
+                $scope.functionalUnityStore = [{'type': '' , 'name': 'Store1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                               {'type': '' , 'name': 'Store2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                               {'type': '' , 'name': 'Store3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}];
                                            
-                $scope.functionalUnityAddSub = [{'cycle': 0, 'type': '' ,'name': 'Add1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                                {'cycle': 0, 'type': '' ,'name': 'Add2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                                {'cycle': 0, 'type': '' ,'name': 'Add3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+                $scope.functionalUnityAddSub = [{'type': '' ,'name': 'Add1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                {'type': '' ,'name': 'Add2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                {'type': '' ,'name': 'Add3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
                                                 ];
                                                 
-                $scope.functionalUnityInteger = [{'cycle': 0, 'type': '' ,'name': 'Integer1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                                 {'cycle': 0, 'type': '' ,'name': 'Integer2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
-                                                 {'cycle': 0, 'type': '' ,'name': 'Integer3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}];
+                $scope.functionalUnityInteger = [{'type': '' ,'name': 'Integer1', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                 {'type': '' ,'name': 'Integer2', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''},
+                                                 {'type': '' ,'name': 'Integer3', 'busy': 'no', 'op': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}];
                 $scope.dependecyListRAW = [];
                 $scope.dictRenamed = {};
                 $scope.instructionIssueCounter = 0;
                 $scope.clockCycle = 1;
+                
                 $scope.execution = function(){
-                    
+                    for(func in $scope.functionalUnityLoad){
+                        
+                        //                tem alguma coisa de ultil                                                           não ta na lista de dependencia  
+                        if(($scope.functionalUnityLoad[func].posInst != undefined && $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityLoad[func].posInst].k) == -1) ||
+                                ( $scope.functionalUnityLoad[func].ex == 'true')){
+                            if($scope.functionalUnityLoad[func].cycle == undefined && $scope.functionalUnityLoad[func].busy == 'yes'){
+                                $scope.functionalUnityLoad[func].cycle = $scope.cycleLoad-1;
+                                $scope.functionalUnityLoad[func].ex = 'true';
+                            }else if($scope.functionalUnityLoad[func].cycle > 0){
+                                $scope.functionalUnityLoad[func].cycle--;
+                            }
+                            if($scope.functionalUnityLoad[func].cycle == 0){
+                                $scope.instructions[$scope.functionalUnityLoad[func].posInst].ex = $scope.clockCycle;
+                                $scope.functionalUnityLoad[func].cycle = undefined;
+                            }
+                        }
+                    }
+                    for(func in $scope.functionalUnityAddSub){
+                        if(($scope.functionalUnityAddSub[func].posInst != undefined && $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityAddSub[func].posInst].k) == -1 && 
+                                $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityAddSub[func].posInst].j) == -1  ) || ($scope.functionalUnityAddSub[func].ex == 'true')){
+                            if($scope.functionalUnityAddSub[func].cycle == undefined && $scope.functionalUnityAddSub[func].busy == 'yes'){
+                                if($scope.instructions[$scope.functionalUnityAddSub[func].posInst].inst == 'ADD.D'){
+                                    $scope.functionalUnityAddSub[func].cycle = $scope.cycleAddd-1;
+                                }else{
+                                    $scope.functionalUnityAddSub[func].cycle = $scope.cycleSubd-1;
+                                }
+                                $scope.functionalUnityAddSub[func].ex = 'true';
+                            }else if($scope.functionalUnityAddSub[func].cycle > 0){
+                                $scope.functionalUnityAddSub[func].cycle--;
+                            }
+                            if($scope.functionalUnityAddSub[func].cycle == 0){
+                                $scope.instructions[$scope.functionalUnityAddSub[func].posInst].ex = $scope.clockCycle;
+                                $scope.functionalUnityAddSub[func].cycle = undefined;
+                            }
+                        }
+                    }
+                    for(func in $scope.functionalUnityStore){
+                        if(($scope.functionalUnityStore[func].posInst != undefined && $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityStore[func].posInst].k) == -1) ||
+                                ($scope.functionalUnityStore[func].ex == 'true')){
+                            if($scope.functionalUnityStore[func].posInst != undefined && $scope.instructions[$scope.functionalUnityStore[func].posInst].waitWrite == undefined){
+                                if($scope.functionalUnityStore[func].cycle == undefined && $scope.functionalUnityStore[func].busy == 'yes'){
+                                    $scope.functionalUnityStore[func].cycle = $scope.cycleStore-1;
+                                    $scope.functionalUnityStore[func].ex = 'true';
+                                }else if($scope.functionalUnityStore[func].cycle > 0){
+                                    $scope.functionalUnityStore[func].cycle--;
+                                }
+                                if($scope.functionalUnityStore[func].cycle == 0){
+                                    $scope.instructions[$scope.functionalUnityStore[func].posInst].ex = $scope.clockCycle;
+                                    $scope.functionalUnityStore[func].cycle = undefined;
+                                }
+                            }
+                        }
+                    }
+                    for(func in $scope.functionalUnityMulDiv){
+                        if(($scope.functionalUnityMulDiv[func].posInst != undefined && $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityMulDiv[func].posInst].k) == -1 &&
+                                $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityMulDiv[func].posInst].j) == -1  ) || ($scope.functionalUnityMulDiv[func].ex == 'true')){
+                            if($scope.functionalUnityMulDiv[func].cycle == undefined && $scope.functionalUnityMulDiv[func].busy == 'yes'){
+                                if($scope.instructions[$scope.functionalUnityMulDiv[func].posInst].inst == 'MULTD'){
+                                    $scope.functionalUnityMulDiv[func].cycle = $scope.cycleMult-1;
+                                }else{
+                                    $scope.functionalUnityMulDiv[func].cycle = $scope.cycleDiv-1;
+                                }
+                                $scope.functionalUnityMulDiv[func].ex = 'true';
+                            }else if($scope.functionalUnityMulDiv[func].cycle > 0){
+                                $scope.functionalUnityMulDiv[func].cycle--;
+                            }
+                            if($scope.functionalUnityMulDiv[func].cycle == 0){
+                                $scope.instructions[$scope.functionalUnityMulDiv[func].posInst].ex = $scope.clockCycle;
+                                $scope.functionalUnityMulDiv[func].cycle = undefined;
+                            }
+                        }
+                    }
+                    for(func in $scope.functionalUnityInteger){
+                        if(($scope.functionalUnityInteger[func].posInst != undefined && $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityInteger[func].posInst].k) == -1 &&
+                                $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityInteger[func].posInst].j) == -1  ) || ($scope.functionalUnityInteger[func].ex == 'true')){
+                            if($scope.functionalUnityInteger[func].cycle == undefined && $scope.functionalUnityInteger[func].busy == 'yes'){
+                                if($scope.instructions[$scope.functionalUnityInteger[func].posInst].inst == 'ADD'){
+                                    $scope.functionalUnityInteger[func].cycle = $scope.cycleAdd-1;
+                                }else if($scope.instructions[$scope.functionalUnityInteger[func].posInst].inst == 'DADDUI'){
+                                    $scope.functionalUnityInteger[func].cycle = $scope.cycleDaddui-1;
+                                }else if($scope.instructions[$scope.functionalUnityInteger[func].posInst].inst == 'BNEZ'){
+                                    $scope.functionalUnityInteger[func].cycle = $scope.cycleBnez-1;
+                                }else{
+                                     $scope.functionalUnityInteger[func].cycle = $scope.cycleBeq-1;
+                                }
+                                $scope.functionalUnityInteger[func].ex = 'true';
+                            }else if($scope.functionalUnityInteger[func].cycle > 0){
+                                $scope.functionalUnityInteger[func].cycle--;
+                            }
+                            if($scope.functionalUnityInteger[func].cycle == 0){
+                                $scope.instructions[$scope.functionalUnityInteger[func].posInst].ex = $scope.clockCycle;
+                                $scope.functionalUnityInteger[func].cycle = undefined;
+                            }
+                        }
+                    }
                 }
                 
                 $scope.getFreeUnity = function(functionalUnity){
@@ -62,7 +172,62 @@ and open the template in the editor.
                     return -1;
                 }
                 $scope.write = function(){
-                    
+                    for(func in $scope.functionalUnityLoad){
+                        if($scope.functionalUnityLoad[func].posInst != undefined && $scope.instructions[$scope.functionalUnityLoad[func].posInst].ex != '' && $scope.instructions[$scope.functionalUnityLoad[func].posInst].w == ''){
+                            $scope.instructions[$scope.functionalUnityLoad[func].posInst].w = $scope.clockCycle;
+                            $scope.functionalUnityLoad[func].busy = 'no';
+                            $scope.functionalUnityLoad[func].address = '';
+                            $scope.dependecyListRAW.splice($scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityLoad[func].posInst].target),1);
+                        }
+                    }
+                    for(func in $scope.functionalUnityAddSub){
+                        if($scope.functionalUnityAddSub[func].posInst != undefined && $scope.instructions[$scope.functionalUnityAddSub[func].posInst].ex != '' && $scope.instructions[$scope.functionalUnityAddSub[func].posInst].w == ''){
+                            $scope.instructions[$scope.functionalUnityAddSub[func].posInst].w = $scope.clockCycle;
+                            $scope.functionalUnityAddSub[func].busy = 'no';
+                            $scope.functionalUnityAddSub[func].vj = '';
+                            $scope.functionalUnityAddSub[func].vk = '';
+                            $scope.functionalUnityAddSub[func].qj = '';
+                            $scope.functionalUnityAddSub[func].qk = '';
+                            $scope.functionalUnityAddSub[func].op = '';
+                            $scope.dependecyListRAW.splice($scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityAddSub[func].posInst].target),1);
+                        }
+                    }
+                    for(func in $scope.functionalUnityStore){
+                        if($scope.functionalUnityStore[func].posInst != undefined && $scope.instructions[$scope.functionalUnityStore[func].posInst].ex != '' && $scope.instructions[$scope.functionalUnityStore[func].posInst].w == ''){
+                            $scope.instructions[$scope.functionalUnityStore[func].posInst].waitWrite = "true";
+                            if($scope.functionalUnityStore[func].posInst != undefined && $scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityStore[func].posInst].target) == -1){
+                                $scope.instructions[$scope.functionalUnityStore[func].posInst].w = $scope.clockCycle;
+                                $scope.functionalUnityStore[func].busy = 'no';
+                                $scope.functionalUnityStore[func].address = '';
+                                $scope.instructions[$scope.functionalUnityStore[func].posInst].waitWrite = undefined;
+                                $scope.dependecyListRAW.splice($scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityStore[func].posInst].target),1);
+                            }
+                        }
+                    }
+                     for(func in $scope.functionalUnityMulDiv){
+                        if($scope.functionalUnityMulDiv[func].posInst != undefined && $scope.instructions[$scope.functionalUnityMulDiv[func].posInst].ex != '' && $scope.instructions[$scope.functionalUnityMulDiv[func].posInst].w == ''){
+                            $scope.instructions[$scope.functionalUnityMulDiv[func].posInst].w = $scope.clockCycle;
+                            $scope.functionalUnityMulDiv[func].busy = 'no';
+                            $scope.functionalUnityMulDiv[func].vj = '';
+                            $scope.functionalUnityMulDiv[func].vk = '';
+                            $scope.functionalUnityMulDiv[func].qj = '';
+                            $scope.functionalUnityMulDiv[func].qk = '';
+                            $scope.functionalUnityMulDiv[func].op = '';
+                            $scope.dependecyListRAW.splice($scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityMulDiv[func].posInst].target),1);
+                        }
+                    }
+                    for(func in $scope.functionalUnityInteger){
+                        if($scope.functionalUnityInteger[func].posInst != undefined && $scope.instructions[$scope.functionalUnityInteger[func].posInst].ex != '' && $scope.instructions[$scope.functionalUnityInteger[func].posInst].w == ''){
+                            $scope.instructions[$scope.functionalUnityInteger[func].posInst].w = $scope.clockCycle;
+                            $scope.functionalUnityInteger[func].busy = 'no';
+                            $scope.functionalUnityInteger[func].vj = '';
+                            $scope.functionalUnityInteger[func].vk = '';
+                            $scope.functionalUnityInteger[func].qj = '';
+                            $scope.functionalUnityInteger[func].qk = '';
+                            $scope.functionalUnityInteger[func].op = '';
+                            $scope.dependecyListRAW.splice($scope.dependecyListRAW.indexOf($scope.instructions[$scope.functionalUnityMulDiv[func].posInst].target),1);
+                        }
+                    }
                 }
                 $scope.issue = function() {
                     if($scope.instructionIssueCounter < $scope.instructions.length){
@@ -72,6 +237,7 @@ and open the template in the editor.
                             $scope.dependecyListRAW.push($scope.instructions[$scope.instructionIssueCounter].target);
                             freePosition = $scope.getFreeUnity($scope.functionalUnityLoad);
                             $scope.functionalUnityLoad[freePosition].busy = 'yes';
+                            $scope.functionalUnityLoad[freePosition].posInst = $scope.instructionIssueCounter;
                             $scope.functionalUnityLoad[freePosition].address = $scope.instructions[$scope.instructionIssueCounter].j +'+'+ $scope.instructions[$scope.instructionIssueCounter].k;
                             $scope.instructions[$scope.instructionIssueCounter].issue = $scope.clockCycle;
                             
@@ -85,6 +251,7 @@ and open the template in the editor.
                             $scope.dependecyListRAW.push($scope.instructions[$scope.instructionIssueCounter].target);
                             freePosition = $scope.getFreeUnity($scope.functionalUnityMulDiv);
                             $scope.functionalUnityMulDiv[freePosition].busy = 'yes';
+                            $scope.functionalUnityMulDiv[freePosition].posInst = $scope.instructionIssueCounter;
                             $scope.functionalUnityMulDiv[freePosition].op = $scope.instructions[$scope.instructionIssueCounter].inst;
                             if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) == -1){
                                 if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
@@ -123,6 +290,7 @@ and open the template in the editor.
                             
                             freePosition = $scope.getFreeUnity($scope.functionalUnityStore);
                             $scope.functionalUnityStore[freePosition].busy = 'yes';
+                            $scope.functionalUnityStore[freePosition].posInst = $scope.instructionIssueCounter;
                             $scope.functionalUnityStore[freePosition].address = $scope.instructions[$scope.instructionIssueCounter].j +'+'+ $scope.instructions[$scope.instructionIssueCounter].k;
                             $scope.instructions[$scope.instructionIssueCounter].issue = $scope.clockCycle;
                             
@@ -135,6 +303,7 @@ and open the template in the editor.
                             $scope.dependecyListRAW.push($scope.instructions[$scope.instructionIssueCounter].target);
                             freePosition = $scope.getFreeUnity($scope.functionalUnityAddSub);
                             $scope.functionalUnityAddSub[freePosition].busy = 'yes';
+                            $scope.functionalUnityAddSub[freePosition].posInst = $scope.instructionIssueCounter;
                             $scope.functionalUnityAddSub[freePosition].op = $scope.instructions[$scope.instructionIssueCounter].inst;
                             if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) == -1){
                                 if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
@@ -169,12 +338,15 @@ and open the template in the editor.
                             $scope.instructionIssueCounter++;
 
 
-                       }else if((($scope.instructions[$scope.instructionIssueCounter].inst == 'BEQ') || ($scope.instructions[$scope.instructionIssueCounter].inst == 'BNEZ') || ($scope.instructions[$scope.instructionIssueCounter].inst == 'ADD') || ($scope.instructions[$scope.instructionIssueCounter].inst == 'DADDUI')) && $scope.getFreeUnity($scope.functionalUnityInteger) > -1 && $scope.instructions[$scope.instructionIssueCounter].issue == ''){
+                       }else if((($scope.instructions[$scope.instructionIssueCounter].inst == 'BEQ') || ($scope.instructions[$scope.instructionIssueCounter].inst == 'BNEZ') || 
+                               ($scope.instructions[$scope.instructionIssueCounter].inst == 'ADD') || ($scope.instructions[$scope.instructionIssueCounter].inst == 'DADDUI')) && 
+                               $scope.getFreeUnity($scope.functionalUnityInteger) > -1 && $scope.instructions[$scope.instructionIssueCounter].issue == ''){
 
 
                             $scope.dependecyListRAW.push($scope.instructions[$scope.instructionIssueCounter].target);
                             freePosition = $scope.getFreeUnity($scope.functionalUnityInteger);
                             $scope.functionalUnityInteger[freePosition].busy = 'yes';
+                            $scope.functionalUnityInteger[freePosition].posInst = $scope.instructionIssueCounter;
                             $scope.functionalUnityInteger[freePosition].op = $scope.instructions[$scope.instructionIssueCounter].inst;
                             if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) == -1){
                                 if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
@@ -215,9 +387,10 @@ and open the template in the editor.
                     }
                 }
                 $scope.stepPerStep = function() {
-                    $scope.issue();
-//                    $scope.execution();
                     $scope.write();
+                    $scope.execution();
+                    $scope.issue();
+                    
                     $scope.clockCycle++;
                 }
 
