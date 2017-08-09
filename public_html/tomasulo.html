@@ -95,6 +95,18 @@ and open the template in the editor.
                                 }else{
                                     $scope.functionalUnityAddSub[func].cycle = $scope.times.cycleSubd-1;
                                 }
+
+                                if($scope.functionalUnityAddSub[func].qj != ''){
+                                    $scope.functionalUnityAddSub[func].vj = $scope.functionalUnityAddSub[func].name;
+                                    $scope.functionalUnityAddSub[func].qj = '';
+                                    //$scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                                }
+                                if($scope.functionalUnityAddSub[func].qk != ''){
+                                    $scope.functionalUnityAddSub[func].vj = $scope.functionalUnityAddSub[func].name;
+                                    $scope.functionalUnityAddSub[func].qk = '';
+                                    //$scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                                }
+
                                 $scope.functionalUnityAddSub[func].ex = 'true';
                             }else if($scope.functionalUnityAddSub[func].cycle > 0){
                                 $scope.functionalUnityAddSub[func].cycle--;
@@ -131,6 +143,19 @@ and open the template in the editor.
                                 }else{
                                     $scope.functionalUnityMulDiv[func].cycle = $scope.times.cycleDiv-1;
                                 }
+
+                                if($scope.functionalUnityMulDiv[func].qj != ''){
+                                    $scope.functionalUnityMulDiv[func].vj = $scope.functionalUnityMulDiv[func].name;
+                                    $scope.functionalUnityMulDiv[func].qj = '';
+                                    //$scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                                }
+                                if($scope.functionalUnityMulDiv[func].qk != ''){
+                                    $scope.functionalUnityMulDiv[func].vj = $scope.functionalUnityMulDiv[func].name;
+                                    $scope.functionalUnityMulDiv[func].qk = '';
+                                    //$scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                                }
+
+
                                 $scope.functionalUnityMulDiv[func].ex = 'true';
                             }else if($scope.functionalUnityMulDiv[func].cycle > 0){
                                 $scope.functionalUnityMulDiv[func].cycle--;
@@ -139,6 +164,7 @@ and open the template in the editor.
                                 $scope.instructions[$scope.functionalUnityMulDiv[func].posInst].ex = $scope.clockCycle;
                                 $scope.functionalUnityMulDiv[func].cycle = undefined;
                             }
+
                         }
                     }
                     for(func in $scope.functionalUnityInteger){
@@ -154,6 +180,19 @@ and open the template in the editor.
                                 }else{
                                      $scope.functionalUnityInteger[func].cycle = $scope.times.cycleBeq-1;
                                 }
+
+                                if($scope.functionalUnityInteger[func].qj != ''){
+                                    $scope.functionalUnityInteger[func].vj = $scope.functionalUnityInteger[func].name;
+                                    $scope.functionalUnityInteger[func].qj = '';
+                                    //$scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                                }
+                                if($scope.functionalUnityInteger[func].qk != ''){
+                                    $scope.functionalUnityInteger[func].vj = $scope.functionalUnityInteger[func].name;
+                                    $scope.functionalUnityInteger[func].qk = '';
+                                    //$scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].target] = $scope.functionalUnityMulDiv[freePosition].name;
+                                }
+
+
                                 $scope.functionalUnityInteger[func].ex = 'true';
                             }else if($scope.functionalUnityInteger[func].cycle > 0){
                                 $scope.functionalUnityInteger[func].cycle--;
@@ -269,6 +308,7 @@ and open the template in the editor.
                             $scope.functionalUnityMulDiv[freePosition].busy = 'yes';
                             $scope.functionalUnityMulDiv[freePosition].posInst = $scope.instructionIssueCounter;
                             $scope.functionalUnityMulDiv[freePosition].op = $scope.instructions[$scope.instructionIssueCounter].inst;
+
                             if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) == -1){
                                 if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
                                     $scope.functionalUnityMulDiv[freePosition].vj = $scope.instructions[$scope.instructionIssueCounter].j;
@@ -283,6 +323,7 @@ and open the template in the editor.
                                     $scope.functionalUnityMulDiv[freePosition].vk = $scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].k];
                                 }
                             }
+
                             if($scope.dependecyListRAW.indexOf($scope.instructions[$scope.instructionIssueCounter].j) > -1){
                                 if($scope.dictRenamed[$scope.instructions[$scope.instructionIssueCounter].j] == undefined){
                                     $scope.functionalUnityMulDiv[freePosition].qj = $scope.instructions[$scope.instructionIssueCounter].j;
