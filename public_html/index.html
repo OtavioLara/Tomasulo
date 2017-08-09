@@ -64,14 +64,23 @@ and open the template in the editor.
                 $scope.remove = function(object){
                     $scope.instructionsList.splice($scope.instructionsList.indexOf(object),1);
                 }
+                $scope.executar = function(){
+                    localStorage.setItem("instList", $scope.instructionsList);
+                    localStorage.setItem("times", $scope.time);
+                    window.location.assign("tomasulo.html");
+                }
             });
         </script>
     </head>
     <body>
         <div ng-app="entradasApp">
             <div ng-controller="entradasController">
+                {{instructionsList[0]}}
                 <div id="inserir">
                     <table>
+                        <thead>
+                            <th colspan=5><h2>Contrutor de Instruções</h2></th>
+                        </thead>
                         <thead>
                         <th>Inst.</th>
                         <th>T</th>
@@ -79,8 +88,6 @@ and open the template in the editor.
                         <th>K</th>
                         </thead>
                         <tbody>
-                            {{instructionsList}}<br>
-                            {{instructionBlock}}
                             <tr>
                                 <td><select ng-model="selectedInst" ng-change="insereInst()" ng-options="x for x in insts"></td>
 
@@ -108,6 +115,9 @@ and open the template in the editor.
                     <center>
                         <table>
                             <thead>
+                                <th colspan=5><h2>Prévia das Instruções</h2></th>
+                            </thead>
+                            <thead>
                                 <th>Inst.</th>
                                 <th>T</th>
                                 <th>J</th>
@@ -127,8 +137,10 @@ and open the template in the editor.
                     </center>
                 </div>
                 <div id="tempos">
-                    {{time}}
                     <table>
+                        <thead>
+                            <th colspan=10><h2>Tempo de Execução</h2></th>
+                        </thead>
                             <thead>
                                 <th>ADD.D</th>
                                 <th>SUBD</th>
@@ -156,6 +168,11 @@ and open the template in the editor.
                                 </tr>
                             </tbody>
                         </table>
+                </div>
+                <div class="component">
+                    <center>
+                        <button type="button" ng-click="executar()">Iniciar tomasulo</button>
+                    </center>
                 </div>
             </div>
         </div>
