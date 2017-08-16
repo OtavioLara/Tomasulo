@@ -27,17 +27,17 @@ and open the template in the editor.
                 $scope.selectedInst = "";
                 $scope.regj = "";
                 $scope.regk = "";
-                $scope.time = {};
-                $scope.time.cycleLoad = 2;
-                $scope.time.cycleStore = 2;
-                $scope.time.cycleMult = 10;
-                $scope.time.cycleDiv = 40;
-                $scope.time.cycleAddd = 2;
-                $scope.time.cycleSubd = 2;
-                $scope.time.cycleAdd = 1;
-                $scope.time.cycleDaddui = 2;
-                $scope.time.cycleBeq = 1;
-                $scope.time.cycleBnez = 1;
+                $scope.times = {};
+                $scope.times.cycleLoad = 2;
+                $scope.times.cycleStore = 2;
+                $scope.times.cycleMult = 10;
+                $scope.times.cycleDiv = 40;
+                $scope.times.cycleAddd = 2;
+                $scope.times.cycleSubd = 2;
+                $scope.times.cycleAdd = 1;
+                $scope.times.cycleDaddui = 2;
+                $scope.times.cycleBeq = 1;
+                $scope.times.cycleBnez = 1;
                     
                 $scope.insereInst = function(){
                     $scope.instructionBlock.inst = $scope.selectedInst;
@@ -65,8 +65,8 @@ and open the template in the editor.
                     $scope.instructionsList.splice($scope.instructionsList.indexOf(object),1);
                 }
                 $scope.executar = function(){
-                    localStorage.setItem("instList", $scope.instructionsList);
-                    localStorage.setItem("times", $scope.time);
+                    localStorage.setItem("instList", JSON.stringify($scope.instructionsList));
+                    localStorage.setItem("times", JSON.stringify($scope.times));
                     window.location.assign("tomasulo.html");
                 }
             });
@@ -75,7 +75,6 @@ and open the template in the editor.
     <body>
         <div ng-app="entradasApp">
             <div ng-controller="entradasController">
-                {{instructionsList[0]}}
                 <div id="inserir">
                     <table>
                         <thead>
@@ -125,6 +124,9 @@ and open the template in the editor.
                                 <th>Remover</th>
                             </thead>                    
                             <tbody>
+                                <tr ng-if="instructionsList[0] == undefined">
+                                    <td colspan=5>Se não entrar com instruções será carregado um exemplo default</td>
+                                </tr>
                                 <tr ng-repeat="inst in instructionsList">
                                     <td>{{inst.inst}}</td>
                                     <td>{{inst.target}}</td>
@@ -155,16 +157,16 @@ and open the template in the editor.
                             </thead>                    
                             <tbody>
                                 <tr>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleAddd"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleSubd"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleMult"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleDiv"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleLoad"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleStore"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleAdd"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleDaddui"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleBeq"></td>
-                                    <td><input type="number" min="0" max="99" ng-model="time.cycleBnez"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleAddd"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleSubd"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleMult"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleDiv"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleLoad"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleStore"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleAdd"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleDaddui"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleBeq"></td>
+                                    <td><input type="number" min="0" max="99" ng-model="times.cycleBnez"></td>
                                 </tr>
                             </tbody>
                         </table>
